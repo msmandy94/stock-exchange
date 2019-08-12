@@ -1,5 +1,7 @@
 package entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -12,6 +14,7 @@ public class Order {
     private Type type;
     private int qty;
     private float price;
+    private static SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
     public Order(int orderId, Date orderTime, Stock stock, Type type, int qty, float price) {
         this.orderId = orderId;
@@ -44,6 +47,10 @@ public class Order {
 
     public float getPrice() {
         return price;
+    }
+
+    public static Date parseDate(String date) throws ParseException {
+        return format.parse(date);
     }
 
     @Override

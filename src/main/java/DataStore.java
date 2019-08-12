@@ -10,7 +10,7 @@ import java.util.concurrent.LinkedBlockingDeque;
  * @author Mandeep Singh on 11/08/19 at 5:43 PM
  */
 public class DataStore {
-    private Queue<Order> pendingOrderQueue = new LinkedBlockingDeque<>(10);
+    private Queue<Order> pendingOrderQueue = new LinkedBlockingDeque<>(20);
     private TreeMap<Order, Integer> pendingBuyOrders = new TreeMap<>((o1, o2) -> {
         if (o1.getPrice() > o2.getPrice()) {
             return -1; // ascending
@@ -57,6 +57,8 @@ public class DataStore {
                 MatchedOrder matchedOrder = new MatchedOrder(
                         availableSellingOrder.getKey().getOrderId(), qty, availableSellingOrder.getKey().getPrice(), order.getOrderId());
                 System.out.println(matchedOrder);
+                matchedOrders.add(matchedOrder);
+
                 // note that the amount at which transaction happened was of selling order.
                 pendingSellOrders.remove(availableSellingOrder.getKey());
                 break;
@@ -64,7 +66,7 @@ public class DataStore {
                 MatchedOrder matchedOrder = new MatchedOrder(
                         availableSellingOrder.getKey().getOrderId(), qty, availableSellingOrder.getKey().getPrice(), order.getOrderId());
                 System.out.println(matchedOrder);
-
+                matchedOrders.add(matchedOrder);
                 // note that the amount at which transaction happened was of selling order.
                 pendingSellOrders.put(availableSellingOrder.getKey(), availableSellingOrder.getValue() - qty);
                 break;
@@ -97,6 +99,7 @@ public class DataStore {
                 MatchedOrder matchedOrder = new MatchedOrder(
                         order.getOrderId(), qty, order.getPrice(), availableBuyOrder.getKey().getOrderId());
                 System.out.println(matchedOrder);
+                matchedOrders.add(matchedOrder);
 
                 // note that the amount at which transaction happened was of selling order.
                 pendingBuyOrders.remove(availableBuyOrder.getKey());
@@ -105,6 +108,7 @@ public class DataStore {
                 MatchedOrder matchedOrder = new MatchedOrder(
                         order.getOrderId(), qty, order.getPrice(), availableBuyOrder.getKey().getOrderId());
                 System.out.println(matchedOrder);
+                matchedOrders.add(matchedOrder);
 
                 // note that the amount at which transaction happened was of selling order.
                 pendingBuyOrders.put(availableBuyOrder.getKey(), availableBuyOrder.getValue() - qty);
@@ -114,6 +118,7 @@ public class DataStore {
                 MatchedOrder matchedOrder = new MatchedOrder(
                         order.getOrderId(), availableBuyOrder.getValue(), availableBuyOrder.getKey().getPrice(), availableBuyOrder.getKey().getOrderId());
                 System.out.println(matchedOrder);
+                matchedOrders.add(matchedOrder);
 
                 qty = qty - availableBuyOrder.getValue();
                 pendingBuyOrders.remove(availableBuyOrder.getKey());

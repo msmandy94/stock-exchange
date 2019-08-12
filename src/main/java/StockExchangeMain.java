@@ -20,6 +20,7 @@ public class StockExchangeMain {
         // start taking inputs
         boolean flag = true;
         System.out.println("type in the orders:");
+        System.out.println("time format is HH:mm");
         System.out.println("<time> <stock> <BUY/SELL> <qty> <price>");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int counter = 0;
@@ -30,9 +31,11 @@ public class StockExchangeMain {
                 if (split.length != 5) {
                     System.out.println("invalid format");
                 }
-                Date date = new SimpleDateFormat("hh:mm").parse(split[0]);
+                Date date = Order.parseDate(split[0]);
                 Order order = new Order(counter++, date, Stock.valueOf(split[1]), Type.valueOf(split[2]), Integer.valueOf(split[3]), Float.valueOf(split[4]));
+
                 AllDataStores.placeOrder(order);
+
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
