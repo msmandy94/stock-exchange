@@ -1,3 +1,6 @@
+import entity.Order;
+import entity.Stock;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,3 +1,5 @@
+package entity;
+
 import java.util.Date;
 
 /**
@@ -9,15 +11,15 @@ public class Order {
     private Stock stock;
     private Type type;
     private int qty;
-    private float amount;
+    private float price;
 
-    public Order(int orderId, Date orderTime, Stock stock, Type type, int qty, float amount) {
+    public Order(int orderId, Date orderTime, Stock stock, Type type, int qty, float price) {
         this.orderId = orderId;
         this.orderTime = orderTime;
         this.stock = stock;
         this.type = type;
         this.qty = qty;
-        this.amount = amount;
+        this.price = price;
     }
 
     public int getOrderId() {
@@ -40,19 +42,19 @@ public class Order {
         return qty;
     }
 
-    public float getAmount() {
-        return amount;
+    public float getPrice() {
+        return price;
     }
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "entity.Order{" +
                 "orderId=" + orderId +
                 ", orderTime=" + orderTime +
                 ", stock=" + stock +
                 ", type=" + type +
                 ", qty=" + qty +
-                ", amount=" + amount +
+                ", price=" + price +
                 '}';
     }
 }

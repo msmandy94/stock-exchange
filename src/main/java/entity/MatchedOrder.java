@@ -1,3 +1,5 @@
+package entity;
+
 /**
  * @author Mandeep Singh on 11/08/19 at 5:50 PM
  */
@@ -32,7 +34,7 @@ public class MatchedOrder {
 
     @Override
     public String toString() {
-        return "MatchedOrder{" +
+        return "entity.MatchedOrder{" +
                 "sellOrderId=" + sellOrderId +
                 ", qty=" + qty +
                 ", price=" + price +

@@ -1,3 +1,6 @@
+import entity.Order;
+import entity.Stock;
+
 import java.util.Queue;
 
 /**
@@ -17,7 +20,14 @@ public class OrderMatcher implements Runnable {
         Queue<Order> pendingOrderBook = dataStore.getPendingOrderQueue();
         while (isRunning()) {
             Order order = pendingOrderBook.poll();
-            assert order != null;
+            if (order==null){
+                try {
+                    Thread.sleep(500L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                continue;
+            }
             switch (order.getType()) {
                 case BUY:
                     dataStore.newBuyOrder(order);
@@ -27,7 +37,7 @@ public class OrderMatcher implements Runnable {
                     break;
                 default:
                     // todo handle error quietly
-                    throw new IllegalArgumentException("Order's type can only be BUY or SELL");
+                    throw new IllegalArgumentException("entity.Order's type can only be BUY or SELL");
             }
         }
     }
